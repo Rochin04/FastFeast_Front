@@ -2,8 +2,17 @@ import { VitePWA } from 'vite-plugin-pwa';
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
-// https://vitejs.dev/config/
+// ...existing code...
 export default defineConfig({
+  server: {
+    proxy: {
+      "/api": {
+        target: "http://localhost:5173", // cambia al puerto/URL de tu backend
+        changeOrigin: true,
+        secure: false,
+      },
+    },
+  },
   plugins: [react(), VitePWA({
     registerType: 'prompt',
     injectRegister: false,
@@ -32,5 +41,6 @@ export default defineConfig({
       suppressWarnings: true,
       type: 'module',
     },
+    
   })],
 })
