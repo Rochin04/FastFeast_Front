@@ -1,9 +1,6 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 const CrearPlatillos: React.FC = () => {
-  const navigate = useNavigate();
-
   const [nombre, setNombre] = useState("");
   const [descripcion, setDescripcion] = useState("");
   const [precio, setPrecio] = useState("");
@@ -12,37 +9,7 @@ const CrearPlatillos: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-
-    // Leer platillos ya guardados
-    const existentes = JSON.parse(localStorage.getItem("platillos") || "[]");
-
-    // Validar duplicado por nombre
-    const duplicado = existentes.some(
-      (p: any) => p.nombre.toLowerCase() === nombre.toLowerCase()
-    );
-
-    if (duplicado) {
-      alert("❌ Este platillo ya existe. Cambia el nombre.");
-      return;
-    }
-
-    const nuevoPlatillo = {
-      id: Date.now(),
-      nombre,
-      descripcion,
-      precio,
-      categoria,
-      imagenUrl: imagen ? URL.createObjectURL(imagen) : null,
-    };
-
-    // Guardar en localStorage
-    existentes.push(nuevoPlatillo);
-    localStorage.setItem("platillos", JSON.stringify(existentes));
-
-    // Enviar platillo por state para mostrarlo sin recargar
-    navigate("/platillos", {
-      state: { nuevoPlatillo },
-    });
+    console.log("Datos enviados:", { nombre, descripcion, precio, categoria, imagen });
   };
 
   return (
@@ -57,16 +24,18 @@ const CrearPlatillos: React.FC = () => {
             background: #f5f5f5;
           }
 
+          /* 🔥 CONTENEDOR PRINCIPAL PARA CENTRAR TODO */
           .contenedor-principal {
             width: 100%;
             height: 100vh;
             display: flex;
-            justify-content: center;
-            align-items: center;
+            justify-content: center;   /* horizontal */
+            align-items: center;       /* vertical */
             padding: 20px;
             margin-left: 280px;
           }
 
+          /* Wrapper para evitar bugs en móviles y mejor control */
           .form-wrapper {
             display: flex;
             justify-content: center;
@@ -142,22 +111,21 @@ const CrearPlatillos: React.FC = () => {
         <div className="form-wrapper">
 
           <form className="card" onSubmit={handleSubmit}>
-            <h2>Agregar Platillo </h2>
+            <h2>Agregar Platillo 🍽️</h2>
 
             <div className="input-group">
               <label>Nombre</label>
-              <input
+              <input 
                 type="text"
                 placeholder="Ej. Enchiladas"
                 value={nombre}
                 onChange={(e) => setNombre(e.target.value)}
-                required
               />
             </div>
 
             <div className="input-group">
               <label>Descripción</label>
-              <textarea
+              <textarea 
                 placeholder="Descripción del platillo"
                 value={descripcion}
                 onChange={(e) => setDescripcion(e.target.value)}
@@ -166,18 +134,17 @@ const CrearPlatillos: React.FC = () => {
 
             <div className="input-group">
               <label>Precio</label>
-              <input
+              <input 
                 type="number"
                 placeholder="0.00"
                 value={precio}
                 onChange={(e) => setPrecio(e.target.value)}
-                required
               />
             </div>
 
             <div className="input-group">
               <label>Categoría</label>
-              <select
+              <select 
                 value={categoria}
                 onChange={(e) => setCategoria(e.target.value)}
               >
@@ -190,7 +157,7 @@ const CrearPlatillos: React.FC = () => {
 
             <div className="input-group">
               <label>Imagen (opcional)</label>
-              <input
+              <input 
                 type="file"
                 onChange={(e) => setImagen(e.target.files?.[0] || null)}
               />
