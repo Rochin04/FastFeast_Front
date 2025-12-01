@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "./carrito.css"; // <- ARCHIVO NUEVO PARA NO ROMPER EL MENUPRINCIPAL
 
 const Carrito: React.FC = () => {
   const [carrito, setCarrito] = useState<any[]>([]);
@@ -19,119 +20,49 @@ const Carrito: React.FC = () => {
   const total = carrito.reduce((acc, item) => acc + Number(item.precio), 0);
 
   return (
-    <>
-      <style>{`
-        body {
-          background: #ffffff !important;
-          color: #000;
-        }
+    <div className="contenedor-carrito">
 
-        /* 🔥 Contenedor general */
-        .carrito-container {
-          width: 100%;
-          max-width: 900px;
-          margin: 0 auto;
-          padding: 25px;
-        }
+      <header className="carrito-header">
+        <h1 className="logo">Fast<span>Feast</span></h1>
 
-        /* 🔥 Solo el contenido se mueve a la derecha */
-        .carrito-root {
-          transform: translateX(350px);
-          text-align: center;
-          padding: 20px;
-          max-width: 800px;
-        }
+        <button className="btn-regresar"
+          onClick={() => navigate("/MenuPrincipal")}
+        >
+          Regresar
+        </button>
+      </header>
 
-        .back-btn {
-          font-size: 18px;
-          cursor: pointer;
-          color: black;
-          margin-bottom: 20px;
-          display: inline-block;
-        }
+      <h2 className="titulo-carrito">🛒 Carrito</h2>
 
-        .item {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          border-bottom: 1px solid #ccc;
-          padding: 15px 0;
-        }
-
-        .item img {
-          width: 100px;
-          height: 100px;
-          object-fit: cover;
-          border-radius: 10px;
-        }
-
-        .delete-btn {
-          background: none;
-          border: none;
-          cursor: pointer;
-        }
-
-        .delete-icon {
-          font-size: 28px;
-          color: red;
-        }
-
-        .pagar-btn {
-          margin-top: 25px;
-          padding: 15px;
-          width: 100%;
-          background: #000;
-          color: #fff;
-          font-size: 18px;
-          border: none;
-          border-radius: 12px;
-          cursor: pointer;
-        }
-      `}</style>
-
-      <div className="carrito-container">
-
-        {/* 🔙 Botón Regresar (NO se mueve) */}
-        <span className="back-btn" onClick={() => navigate(-1)}>
-          ← Regresar
-        </span>
-
-        {/* 🔥 ESTE sí se mueve */}
-        <div className="carrito-root">
-          <h1>🛒 Carrito</h1>
-
-          {carrito.length === 0 ? (
-            <p>No hay productos en el carrito</p>
-          ) : (
-            carrito.map((item, index) => (
-              <div key={index} className="item">
-                <div style={{ display: "flex", alignItems: "center", gap: "15px" }}>
-                  <img src={item.imagenUrl} alt={item.nombre} />
-                  <div style={{ textAlign: "left" }}>
-                    <h3>{item.nombre}</h3>
-                    <p>${Number(item.precio).toFixed(2)}</p>
-                  </div>
-                </div>
-
-                <button className="delete-btn" onClick={() => eliminarItem(index)}>
-                  <span className="delete-icon">🗑️</span>
-                </button>
+      <div className="lista-carrito">
+        {carrito.length === 0 ? (
+          <p className="vacio">No hay productos en el carrito</p>
+        ) : (
+          carrito.map((item, index) => (
+            <div className="item-carrito" key={index}>
+              <img src={item.imagenUrl} alt={item.nombre} />
+              
+              <div className="info">
+                <h3>{item.nombre}</h3>
+                <p className="precio">${item.precio}</p>
               </div>
-            ))
-          )}
 
-          <h2 style={{ marginTop: 20 }}>
-            Total a pagar: <strong>${total.toFixed(2)}</strong>
-          </h2>
-
-          {carrito.length > 0 && (
-            <button className="pagar-btn" onClick={() => alert("Pago completado ✔")}>
-              Pagar
-            </button>
-          )}
-        </div>
+              <button className="btn-eliminar" onClick={() => eliminarItem(index)}>
+                Eliminar
+              </button>
+            </div>
+          ))
+        )}
       </div>
-    </>
+
+      {carrito.length > 0 && (
+        <div className="total">
+          <h2>Total: ${total.toFixed(2)}</h2>
+          <button className="btn-pagar">Pagar</button>
+        </div>
+      )}
+
+    </div>
   );
 };
 

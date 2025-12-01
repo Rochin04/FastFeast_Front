@@ -1,0 +1,107 @@
+/* Contenedor general del carrito */
+.contenedor-carrito {
+  width: 100%;
+  min-height: 100vh;
+  background: #f0f4ff;
+  padding: 20px 40px;
+  box-sizing: border-box;
+}
+
+/* Header */
+.carrito-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 32px;
+  font-weight: 900;
+}
+
+.logo span {
+  color: orange;
+}
+
+.btn-regresar {
+  background: orange;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+/* Título */
+.titulo-carrito {
+  margin-top: 30px;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+/* Lista de items */
+.lista-carrito {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Tarjeta de cada item */
+.item-carrito {
+  width: 100%;
+  background: white;
+  padding: 15px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+}
+
+.item-carrito img {
+  width: 90px;
+  height: 90px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.item-carrito .info {
+  flex: 1;
+}
+
+.precio {
+  font-size: 20px;
+  color: #444;
+}
+
+/* Botón eliminar */
+.btn-eliminar {
+  background: red;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* Total */
+.total {
+  margin-top: 40px;
+  text-align: center;
+  font-size: 22px;
+}
+
+.btn-pagar {
+  margin-top: 20px;
+  background: orange;
+  color: white;
+  padding: 15px 25px;
+  font-size: 18px;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+}
